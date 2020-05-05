@@ -1,0 +1,87 @@
+A - 1º Piloto - Setup do projeto:
+    ✔ Fazer fork do projeto @done(20-04-29 15:25)
+    ✔ Clonar projeto para local @done(20-04-29 15:25)
+    ✔ Rodar script de criação do banco de dados @done(20-04-29 15:25)
+    ✔ Instalar @done(20-04-29 15:25)
+        ✔ sequelize @done(20-04-29 15:25)
+        ✔ sequelize-cli @done(20-04-29 15:25)
+        ✔ mysql2 @done(20-04-29 15:25)
+        ✔ dotenv @done(20-04-29 15:25)
+    ✔ Configurar conexão com o banco utilizando variáveis do ambiente (https://github.com/motdotla/dotenv) @done(20-04-29 15:25)
+    ✔ Testar conexão com o banco (node testeDb.js) @done(20-04-29 15:26)
+    ✔ Atualizar repositório remoto @done(20-04-29 15:26)
+    ✔ Adicionar outros membros como colaboradores @done(20-04-29 15:26)
+
+B - Comum - Setup do BD:
+    ✔ Clonar repositório @done(20-04-29 15:26)
+    ✔ Ajustar conexão a banco de dados alterando o ".env" @done(20-04-29 15:26)
+    ✔ Testar conexão com o banco (node testeDb.js) @done(20-04-29 15:27)
+
+C - 2º Piloto - Criação de Model Usuario:
+    ✔ Configurar .sequelizerc ["models": path.resolve("models")] @done(20-04-29 15:27)
+    ✔ Rodar o sequelize para criação/configuração de pasta de models [npx sequelize init:models] @done(20-04-29 15:27)
+    ✔ Alterar a linha 8 do models/index.js para que o require carregue as configurações corretamente. @done(20-04-29 15:29)
+    ✔ Criar model Usuario [Usuario.js] @done(20-04-29 15:29)
+    ✔ Testar se model Usuario (testes/testeModelUsuario.js) @done(20-04-29 15:29)
+
+AULA 2 = = = = = = = = = = = = = = = = = = = =
+
+D - 3º Piloto - Criação do Model Post:
+    ✔ Criar o model Post @done(20-04-29 15:29)
+
+E - 4º Piloto - Criação do Model Comentario:
+    ✘ Criar o model Comentario @cancelled
+    ✘ Criar um método Post.getComentarios() no model Post que retorna um array de comentarios do Post @cancelled
+
+F - 5º Piloto - Login:
+    ✔ Instalar bcrypt @done(20-04-29 18:20)
+    ✔ Instalar express-session @done(20-04-29 18:20)
+    ✔ Fazer o Login: @done(20-05-04 04:44)
+        ✔ Criar rota post para '/login' que direciona para AuthController.login @done(20-04-29 18:20)
+        ✔ Criar método AuthController.login @done(20-04-29 18:20)
+            Caso o usuário com o email e senha digitados no form exista e tenha a senha
+            correta, esse método deve criar uma session chamada usuario e armazenar
+            esse usuario nesse session. Feito isso, direcionar para a rota "/home"
+            Caso o usuário/senha não esteja correto, deve direcionar para "/" passando
+            status de erro na url
+        ✔ Criar um Middlerware em middlewares/VerificaUsuarioLogado.js: @done(20-04-29 18:20)
+            Esse middleware verifica se o usuário está logado. Caso não esteja, direciona o
+            visitante para '/'. Caso ele esteja, next()!
+        ✔ Proteger a rota "/home" com VerificaUsuarioLogado.js @done(20-04-29 18:20)
+
+G - Criação de Model Comentário:
+    ✔ Criar model de comentário @done(20-05-04 14:32)
+    ☐ Definir associação de models Post <==> Comentario
+
+H - Exibir feed:
+    ✘ Alterar rota get '/home' para direcionar controller HomeController.show @cancelled(20-05-04 17:59)
+    ✘ Criar o HomeController com método show. @cancelled(20-05-04 17:59)
+        O método HomeController.show deve renderizar a view index.ejs
+        passando para ela o Usuario logado.
+    ✔ Alterar a view index.ejs para mostrar todos os posts e todos os comentários de cada post @done(20-05-04 17:59)
+
+I - Curtir Post:
+    ☐ Criar rota post para '/curtir' direcionando para HomeController.curtir
+        A rota deve ser protegida pelo middleware VerificaUsuarioLogado
+    ☐ HomeController.curtir deve receber o id do Post a ser curtido e incrementar o número de curtidas dele
+    ☐ Fazer o botão curtir submeter um form via post para '/curtir' contendo o id do Post curtido
+    //update 
+J - Adicionar Comentário:
+    ☐ Criar rota post para '/comentario' que direciona para HomeController.comentar
+        A rota deve ser protegida pelo middleware VerificaUsuarioLogado
+    ☐ Criar HomeController.comentar
+        HomeController.comentar deve criar um novo comentário com o texto recebido associado ao post
+        e ao usuário que realizou o comentário. Ao final da operação, redirecionar para '/home'
+
+K - Registrar novo usuário:
+    ☐ Criar rota post para '/registro' direcionando para o controller UsuarioController.store
+    ☐ Criar controller UsuarioController e nela o método store.
+        Esse método deve receber as informações do formulário e tentar criar um novo usuário com
+        elas. Caso obtenha sucesso, deve setar a session de usuário para o visitante e direcioná-lo
+        para a home
+    //create
+L - Criar nova Publicação (Post):
+    ☐ Alterar a view index.ejs para que ela tenha um formulário com os campos de text e fila
+    ☐ Configurar o multer para salvar arquivos de upload em public/img/publicacoes
+    ☐ Criar uma rota post para '/post' que é direcionada para PostsController.store
+        Esse método deve salvar os dados do post no BD e direcionar o usuário de volta para '/home'

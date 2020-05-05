@@ -24,7 +24,6 @@ let Usuario = (sequelize, DataTypes) => {
             tableName: "usuarios",
             timestamps: false
         }
-
     );
 }
 
